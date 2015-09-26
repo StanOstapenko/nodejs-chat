@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/StanOstapenko/nodejs-chat/issues"
   },
-  "homepage": "https://github.com/StanOstapenko/nodejs-chat"
+  "homepage": "https://github.com/StanOstapenko/nodejs-chat",
+  "dependencies": {
+    "config": "^1.16.0"
+  }
 }
