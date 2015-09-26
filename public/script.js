@@ -26,7 +26,7 @@ function subscribe() {
 
 	xhr.onload = function() {
 		var tr = document.createElement('tr'),
-				td = document.creaateElement('td');
+				td = document.createElement('td');
 
 		td.textContent = this.response;
 		tr.appendChild(td);
