@@ -6,6 +6,4 @@ var http = require('http'),
 
 var server = new http.Server();
 
-server.on('request', handler);
-
-server.listen(3000);
+server.on('request', handler).listen(3000);

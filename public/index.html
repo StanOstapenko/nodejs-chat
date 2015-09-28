@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Simple chat</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 <body>
     <div class="container">
@@ -17,11 +18,51 @@
 
         <br/>
 
-        <table id="messages" class="table table-striped">
-
+        <table class="table table-striped">
+           <tbody id="messages"></tbody>
         </table>
     </div>
-
-    <script type="text/javascript" src="script.js"></script>
 </body>
+
+<script>
+    publish.onsubmit = function(){
+        var message = this.elements.message.value,
+            xhr = new XMLHttpRequest();
+
+        if (!message) return false;
+
+        xhr.open('POST', '/publish', true);
+
+        xhr.send(JSON.stringify({
+            message: message
+        }));
+
+        this.elements.message.value = '';
+
+        return false;
+    };
+
+    //Long polling implementation
+    subscribe();
+
+    function subscribe() {
+        var xhr = new XMLHttpRequest();
+
+        xhr.open('GET', '/subscribe', true);
+
+        xhr.onload = function() {
+            var tr = document.createElement('tr'),
+                td = document.createElement('td');
+
+            td.textContent = this.response;
+            tr.appendChild(td);
+
+            messages.appendChild(tr);
+            subscribe();
+        };
+
+        xhr.send('');
+    }
+</script>
+
 </html>
